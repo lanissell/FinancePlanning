@@ -1,9 +1,9 @@
 class Transaction:
 
-    def __init__(self, date, price, category):
-        self.date = date
+    def __init__(self, price, category, date):
         self.price = price
         self.category = category
+        self.date = date
 
 
 class Earning(Transaction):
