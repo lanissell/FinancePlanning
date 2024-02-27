@@ -1,4 +1,4 @@
-from Models import Transaction
+from Models import Earning
 
 
 class TransactionRepository:
