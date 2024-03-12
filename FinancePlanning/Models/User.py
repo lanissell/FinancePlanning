@@ -21,3 +21,7 @@ class User:
 
     def add_goal(self, goal_id, name, price):
         self.goals.append(Goal(goal_id, name, price))
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.user_id == other.user_id
