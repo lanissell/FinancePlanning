@@ -1,4 +1,4 @@
-from Models import Goal
+from FinancePlanning.Models.Goal import Goal
 
 
 class GoalRepository:

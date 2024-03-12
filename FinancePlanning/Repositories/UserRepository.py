@@ -1,4 +1,4 @@
-from Models import User
+from FinancePlanning.Models.User import User
 
 
 class UserRepository:

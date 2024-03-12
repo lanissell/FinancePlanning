@@ -1,6 +1,6 @@
-from Models.Goal import Goal
-from Models.Earning import Earning
-from Models.Revenue import Revenue
+from Goal import Goal
+from Earning import Earning
+from Revenue import Revenue
 
 
 class User:

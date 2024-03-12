@@ -1,4 +1,4 @@
-from Models import RevenueCategory
+from FinancePlanning.Models.RevenueCategory import RevenueCategory
 
 
 class RevenueCategoryRepository:

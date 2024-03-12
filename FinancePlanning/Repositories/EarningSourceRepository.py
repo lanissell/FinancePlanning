@@ -1,4 +1,4 @@
-from Models import EarningSource
+from FinancePlanning.Models.EarningSource import EarningSource
 
 
 class EarningSourceRepository:

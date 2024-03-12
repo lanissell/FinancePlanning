@@ -1,4 +1,4 @@
-from Models.EarningSource import EarningSource
+from EarningSource import EarningSource
 
 
 class Earning:
@@ -8,4 +8,3 @@ class Earning:
         self.price = price
         self.source = earning_source
         self.date = date
-
