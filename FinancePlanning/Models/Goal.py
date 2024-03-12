@@ -8,4 +8,5 @@ class Goal:
     user_id: int
     name: str
     price: float
+    closed: bool
 

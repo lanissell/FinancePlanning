@@ -40,6 +40,18 @@ class User:
 
         return user_goals
 
+    def get_user_balance(self):
+
+        balance = 0
+
+        for earning in self.get_user_earnings():
+            balance += earning.price
+
+        for goal in self.get_user_goals():
+            balance -= goal.price
+
+        return balance
+
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.user_id == other.user_id
