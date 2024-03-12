@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class Goal:
 
     goal_id: int
+    user_id: int
     name: str
     price: float
 
