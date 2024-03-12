@@ -14,12 +14,17 @@ class EarningsService:
     def create_earning(self, user: User, price: float, source: EarningSource, date: datetime):
 
         if price <= 0:
-            pass
+            return False
 
         if date > datetime.now():
-            pass
+            return False
 
-        last_earning_id = self.earnings_repository.GetAll()[-1].earning_id
+        earnings = self.earnings_repository.GetAll()
 
-        self.earnings_repository.Add(Earning(last_earning_id + 1, user.user_id, price, source, date))
+        if len(earnings) > 0:
+            last_id = earnings[-1].revenue_category_id + 1
+        else:
+            last_id = 0
+
+        self.earnings_repository.Add(Earning(last_id, user.user_id, price, source, date))
 
