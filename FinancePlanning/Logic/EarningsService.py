@@ -8,8 +8,10 @@ from FinancePlanning.Repositories.EarningRepository import EarningRepository
 
 class EarningsService:
 
-    @staticmethod
-    def create_earning(user: User, price: float, source: EarningSource, date: datetime):
+    def __init__(self, earnings_repository: EarningRepository):
+        self.earnings_repository = earnings_repository
+
+    def create_earning(self, user: User, price: float, source: EarningSource, date: datetime):
 
         if price <= 0:
             pass
@@ -17,8 +19,7 @@ class EarningsService:
         if date > datetime.now():
             pass
 
-        repository = EarningRepository()
-        last_earning_id = repository.GetAll()[-1].earning_id
+        last_earning_id = self.earnings_repository.GetAll()[-1].earning_id
 
-        repository.Add(Earning(last_earning_id + 1, user.user_id, price, source, date))
+        self.earnings_repository.Add(Earning(last_earning_id + 1, user.user_id, price, source, date))
 

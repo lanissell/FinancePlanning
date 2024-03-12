@@ -5,14 +5,17 @@ from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
 
 class User:
 
-    def __init__(self, user_id, name, surname):
+    def __init__(self, user_id, name, surname, earnings: EarningRepository, revenues: RevenueRepository, goals: GoalRepository):
         self.user_id = user_id
         self.name = name
         self.surname = surname
+        self.earnings = earnings
+        self.revenues = revenues
+        self.goals = goals
 
     def get_user_earnings(self):
         user_earnings = list()
-        earnings = EarningRepository().GetAll()
+        earnings = self.earnings.GetAll()
 
         for earning in earnings:
             if earning.user_id == self.user_id:
@@ -22,7 +25,7 @@ class User:
 
     def get_user_revenues(self):
         user_revenues = list()
-        revenues = RevenueRepository().GetAll()
+        revenues = self.revenues.GetAll()
 
         for revenue in revenues:
             if revenue.user_id == self.user_id:
@@ -31,7 +34,7 @@ class User:
         return user_revenues
 
     def get_user_goals(self):
-        goals = GoalRepository().GetAll()
+        goals = self.goals.GetAll()
         user_goals = list()
 
         for goal in goals:

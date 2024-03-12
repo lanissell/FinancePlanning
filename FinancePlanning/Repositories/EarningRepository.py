@@ -1,4 +1,4 @@
-from FinancePlanning.Models.Earning import Earning
+from FinancePlanning.Models import Earning
 
 
 class EarningRepository:

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from EarningSource import EarningSource
+from FinancePlanning.Models import EarningSource
 
 
 @dataclass(frozen=True)
