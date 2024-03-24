@@ -31,32 +31,30 @@ class GoalServiceTest(unittest.TestCase):
 
         self.goal_service = GoalService(goals, self.user_repository, self.revenue_service)
 
-
     def test_create_goal_successfully(self):
+        repository = self.goal_service.goal_repository
 
-        result = self.goal_service.create_goal(self.user, "Car", 10000)
+        goals_count = repository.GetAll().count()
 
-        self.assertTrue(result)
+        self.goal_service.create_goal(self.user, "Car", 10000)
+
+        isGoalAdded = repository.GetAll().count() == goals_count + 1
+
+        self.assertTrue(isGoalAdded)
 
     def test_create_goal_with_negative_price(self):
-
         result = self.goal_service.create_goal(self.user, "Car", -10000)
 
         self.assertFalse(result)
 
-
     def test_close_goal_successfully(self):
-
         self.goal_service.create_goal(self.user, "Car", 10000)
+        self.goal_service.close_goal(self.user.get_user_goals()[0])
 
-        result = self.goal_service.close_goal(self.user.get_user_goals()[0])
-
-        self.assertTrue(result)
+        self.assertTrue(self.user.get_user_goals()[0].closed)
 
     def test_close_goal_unsuccessfully(self):
-
         self.goal_service.create_goal(self.user, "Car", 10000000)
+        self.goal_service.close_goal(self.user.get_user_goals()[0])
 
-        result = self.goal_service.close_goal(self.user.get_user_goals()[0])
-
-        self.assertFalse(result)
+        self.assertFalse(self.user.get_user_goals()[0].closed)

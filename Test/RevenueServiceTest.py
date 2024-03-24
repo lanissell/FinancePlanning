@@ -20,23 +20,38 @@ class RevenueServiceTest(unittest.TestCase):
 
     def test_create_revenue_successfully(self):
 
-        result = self.revenue_service.create_revenue(self.user, 100,
+        repository = self.revenue_service.revenue_repository
+        revenues_count = repository.GetAll().count()
+
+        self.revenue_service.create_revenue(self.user, 100,
                                             self.revenue_service.get_revenue_category_by_name("Shop"), datetime.now())
 
-        self.assertTrue(result)
+        isRevenueAdded = repository.GetAll().count() == revenues_count + 1
+
+        self.assertTrue(isRevenueAdded)
 
     def test_create_revenue_negative_price(self):
 
-        result = self.revenue_service.create_revenue(self.user, -100,
+        repository = self.revenue_service.revenue_repository
+        revenues_count = repository.GetAll().count()
+
+        self.revenue_service.create_revenue(self.user, -100,
                                             self.revenue_service.get_revenue_category_by_name("Shop"), datetime.now())
 
-        self.assertFalse(result)
+        isRevenueAdded = repository.GetAll().count() == revenues_count + 1
+
+        self.assertFalse(isRevenueAdded)
 
     def test_create_revenue_future_date(self):
 
+        repository = self.revenue_service.revenue_repository
+        revenues_count = repository.GetAll().count()
+
         date = datetime(2050, 1, 1)
 
-        result = self.revenue_service.create_revenue(self.user, 100,
+        self.revenue_service.create_revenue(self.user, 100,
                                             self.revenue_service.get_revenue_category_by_name("Shop"), date)
 
-        self.assertFalse(result)
+        isRevenueAdded = repository.GetAll().count() == revenues_count + 1
+
+        self.assertFalse(isRevenueAdded)
