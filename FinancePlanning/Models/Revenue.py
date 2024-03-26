@@ -1,7 +1,13 @@
-class Revenue:
+from dataclasses import dataclass
+from datetime import datetime
 
-    def __init__(self, revenue_id, price, revenues_category, date):
-        self.revenue_id = revenue_id
-        self.price = price
-        self.category = revenues_category
-        self.date = date
+from FinancePlanning.Models.RevenueCategory import RevenueCategory
+
+
+@dataclass(frozen=True)
+class Revenue:
+    earning_id: int
+    user_id: int
+    price: float
+    category: RevenueCategory
+    date: datetime

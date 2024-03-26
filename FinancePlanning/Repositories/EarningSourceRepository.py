@@ -1,4 +1,4 @@
-from Models import EarningSource
+from FinancePlanning.Models.EarningSource import EarningSource
 
 
 class EarningSourceRepository:
@@ -11,17 +11,20 @@ class EarningSourceRepository:
 
     def GetById(self, earning_source_id):
         return next(earning_source for earning_source in self.sources
-                    if earning_source["earning_source_id"] == earning_source_id)
+                    if earning_source.earning_source_id == earning_source_id)
 
-    def AddUser(self, earning_source: EarningSource):
+    def AddSource(self, earning_source: EarningSource):
         self.sources.append(earning_source)
 
-    def DeleteUserById(self, category_id):
+    def DeleteSourceById(self, category_id):
         self.sources.remove(self.GetById(category_id))
 
-    def Update(self, earning_source_id, new_earning_source: EarningSource):
+    def Update(self, earning_source_id, new_name):
+        index = 0
         for source in self.sources:
-            if source["earning_source_id"] == earning_source_id:
-                new_earning_source.id = earning_source_id
-                source.update(new_earning_source)
+            if source.earning_source_id == earning_source_id:
+                self.sources[index] = EarningSource(source.earning_source_id, new_name)
+                pass
+            index += 1
+
 

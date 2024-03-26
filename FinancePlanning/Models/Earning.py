@@ -1,11 +1,14 @@
-from Models.EarningSource import EarningSource
+from dataclasses import dataclass
+from datetime import datetime
+
+from FinancePlanning.Models import EarningSource
 
 
+@dataclass(frozen=True)
 class Earning:
-
-    def __init__(self, earning_id, price, earning_source: EarningSource, date):
-        self.transaction_id = earning_id
-        self.price = price
-        self.source = earning_source
-        self.date = date
+    earning_id: int
+    user_id: int
+    price: float
+    source: EarningSource
+    date: datetime
 
