@@ -3,8 +3,8 @@ from datetime import datetime
 from FinancePlanning.Logic.RevenuesService import RevenuesService
 from FinancePlanning.Models.Goal import Goal
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.GoalRepository import GoalRepository
-from FinancePlanning.Repositories.UserRepository import UserRepository
+from FinancePlanning.Repositories.Redudant.GoalRepository import GoalRepository
+from FinancePlanning.Repositories.Redudant.UserRepository import UserRepository
 
 
 class GoalService:

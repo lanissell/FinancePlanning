@@ -3,9 +3,9 @@ from datetime import datetime
 
 from FinancePlanning.Logic.RevenuesService import RevenuesService
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.EarningRepository import EarningRepository
-from FinancePlanning.Repositories.RevenueCategoryRepository import RevenueCategoryRepository
-from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
+from FinancePlanning.Repositories.Redudant.EarningRepository import EarningRepository
+from FinancePlanning.Repositories.Redudant.RevenueCategoryRepository import RevenueCategoryRepository
+from FinancePlanning.Repositories.Redudant.RevenueRepository import RevenueRepository
 
 
 class RevenueServiceTest(unittest.TestCase):

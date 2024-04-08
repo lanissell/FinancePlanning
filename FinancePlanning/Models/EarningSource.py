@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from FinancePlanning.Models.DomainObject import DomainDataClass
+
 
 @dataclass(frozen=True)
-class EarningSource:
-
-    earning_source_id: int
+class EarningSource(DomainDataClass):
     name: str

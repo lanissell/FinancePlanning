@@ -3,8 +3,8 @@ from datetime import datetime
 from FinancePlanning.Models.Revenue import Revenue
 from FinancePlanning.Models.RevenueCategory import RevenueCategory
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.RevenueCategoryRepository import RevenueCategoryRepository
-from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
+from FinancePlanning.Repositories.Redudant.RevenueCategoryRepository import RevenueCategoryRepository
+from FinancePlanning.Repositories.Redudant.RevenueRepository import RevenueRepository
 
 
 class RevenuesService:

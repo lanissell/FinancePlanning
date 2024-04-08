@@ -1,44 +1,46 @@
-from FinancePlanning.Repositories.EarningRepository import EarningRepository
-from FinancePlanning.Repositories.GoalRepository import GoalRepository
-from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
+from FinancePlanning.Models.DomainObject import DomainObject
+from FinancePlanning.Repositories.Redudant.EarningRepository import EarningRepository
+from FinancePlanning.Repositories.Redudant.GoalRepository import GoalRepository
+from FinancePlanning.Repositories.Redudant.RevenueRepository import RevenueRepository
 
 
-class User:
+class User(DomainObject):
 
-    def __init__(self, user_id, name, surname, earnings: EarningRepository, revenues: RevenueRepository, goals: GoalRepository):
-        self.user_id = user_id
+    def __init__(self, object_id, name, surname, earningsRepo: EarningRepository, revenuesRepo: RevenueRepository, goalsRepo: GoalRepository):
+
+        super().__init__(object_id)
         self.name = name
         self.surname = surname
-        self.earnings = earnings
-        self.revenues = revenues
-        self.goals = goals
+        self.earningsRepo = earningsRepo
+        self.revenuesRepo = revenuesRepo
+        self.goalsRepo = goalsRepo
 
     def get_user_earnings(self):
         user_earnings = list()
-        earnings = self.earnings.GetAll()
+        earnings = self.earningsRepo.GetAll()
 
         for earning in earnings:
-            if earning.user_id == self.user_id:
+            if earning.user_id == self.object_id:
                 user_earnings.append(earning)
 
         return user_earnings
 
     def get_user_revenues(self):
         user_revenues = list()
-        revenues = self.revenues.GetAll()
+        revenues = self.revenuesRepo.GetAll()
 
         for revenue in revenues:
-            if revenue.user_id == self.user_id:
+            if revenue.user_id == self.object_id:
                 user_revenues.append(revenue)
 
         return user_revenues
 
     def get_user_goals(self):
-        goals = self.goals.GetAll()
+        goals = self.goalsRepo.GetAll()
         user_goals = list()
 
         for goal in goals:
-            if goal.user_id == self.user_id:
+            if goal.user_id == self.object_id:
                 user_goals.append(goal)
 
         return user_goals
@@ -57,4 +59,4 @@ class User:
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.user_id == other.user_id
+            return super().object_id == other.object_id
