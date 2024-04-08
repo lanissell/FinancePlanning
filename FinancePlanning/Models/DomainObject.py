@@ -1,13 +1,11 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 
-class DomainObject(ABC):
-
-    def __init__(self, object_id):
-        self.object_id = object_id
+@dataclass(frozen=False)
+class DomainObject:
+    object_id: int
 
 
 @dataclass(frozen=True)
-class DomainDataClass(ABC):
+class DomainFrozen:
     object_id: int

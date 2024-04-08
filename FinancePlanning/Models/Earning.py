@@ -1,14 +1,12 @@
 from dataclasses import dataclass
-from datetime import datetime
 
-from FinancePlanning.Models import EarningSource
-from FinancePlanning.Models.DomainObject import DomainDataClass
+from FinancePlanning.Models.DomainObject import DomainFrozen
 
 
 @dataclass(frozen=True)
-class Earning (DomainDataClass):
+class Earning (DomainFrozen):
     user_id: int
     price: float
-    source: EarningSource
-    date: datetime
+    source_id: int
+    date: str
 

@@ -1,4 +1,7 @@
+import dataclasses
 import os
+
+from dacite import from_dict, MissingValueError
 from lxml import etree as ET
 
 from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
@@ -8,9 +11,10 @@ import xmltodict
 
 class XMLRepository(RepositoryBase):
 
-    def __init__(self, name, path):
+    def __init__(self, name, path, valueType):
         self.name = name
         self.path = path
+        self.valueType = valueType
 
     def GetAll(self):
         root = self.GetXmlRoot()
@@ -18,7 +22,8 @@ class XMLRepository(RepositoryBase):
         items = list()
 
         for child in root:
-            items.append(xmltodict.parse(ET.tostring(child)))
+            item = xmltodict.parse(ET.tostring(child))
+            items.append(from_dict(self.valueType, self.GetTypedDict(item[self.name])))
 
         return items
 
@@ -26,13 +31,13 @@ class XMLRepository(RepositoryBase):
         items = self.GetAll()
 
         for item in items:
-            if item[f"{self.name}"]['object_id']['#text'] == f"{id}":
+            if item.object_id == id:
                 return item
 
     def Add(self, item):
         root = self.GetXmlRoot()
 
-        itemDict = vars(item)
+        itemDict = dataclasses.asdict(item)
         itemXmlString = dicttoxml(itemDict, custom_root=self.name)
         itemXml = ET.fromstring(itemXmlString)
 
@@ -52,7 +57,7 @@ class XMLRepository(RepositoryBase):
 
     def Update(self, item):
 
-        self.DeleteById(item.id)
+        self.DeleteById(item.object_id)
         self.Add(item)
 
     def GetXmlRoot(self):
@@ -80,3 +85,19 @@ class XMLRepository(RepositoryBase):
 
     def GetFullPath(self):
         return self.path + f"\\{self.name}"
+
+    def GetTypedDict(self, xmlDict):
+
+        newDict = xmlDict.copy()
+
+        for key in xmlDict.keys():
+            valueType = eval(xmlDict[key]["@type"])
+
+            value = xmlDict[key]["#text"]
+
+            if valueType is bool:
+                newDict[key] = True if value == "true" else False
+            else:
+                newDict[key] = valueType(value)
+
+        return newDict
