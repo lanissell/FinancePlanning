@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from FinancePlanning.Models.DomainObject import DomainFrozen
+
 
 @dataclass(frozen=True)
-class RevenueCategory:
-
-    revenue_category_id: int
+class RevenueCategory(DomainFrozen):
     name: str

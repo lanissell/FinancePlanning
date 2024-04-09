@@ -3,17 +3,16 @@ from datetime import datetime
 from FinancePlanning.Models.Revenue import Revenue
 from FinancePlanning.Models.RevenueCategory import RevenueCategory
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.RevenueCategoryRepository import RevenueCategoryRepository
-from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
+from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
 
 
 class RevenuesService:
 
-    def __init__(self, revenue_repository: RevenueRepository, revenue_category_repository: RevenueCategoryRepository):
+    def __init__(self, revenue_repository: RepositoryBase, revenue_category_repository: RepositoryBase):
         self.revenue_repository = revenue_repository
         self.revenue_category_repository = revenue_category_repository
 
-    def create_revenue(self, user: User, price: float, category: RevenueCategory, date: datetime):
+    def create_revenue(self, user: User, price: float, category: int, date: datetime):
 
         if price <= 0 or date > datetime.now():
             return False
@@ -25,7 +24,7 @@ class RevenuesService:
         else:
             last_id = 0
 
-        self.revenue_repository.Add(Revenue(last_id, user.user_id, price, category, date))
+        self.revenue_repository.Add(Revenue(last_id, user.object_id, price, category, str(date)))
 
         return True
 
@@ -38,7 +37,7 @@ class RevenuesService:
                 return revenue_category
 
         if len(categories) > 0:
-            last_id = categories[-1].revenue_category_id
+            last_id = categories[-1].object_id
         else:
             last_id = 0
 

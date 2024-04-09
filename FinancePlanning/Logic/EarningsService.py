@@ -3,7 +3,7 @@ from datetime import datetime
 from FinancePlanning.Models.Earning import Earning
 from FinancePlanning.Models.EarningSource import EarningSource
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.EarningRepository import EarningRepository
+from FinancePlanning.Repositories.Redudant.EarningRepository import EarningRepository
 
 
 class EarningsService:
