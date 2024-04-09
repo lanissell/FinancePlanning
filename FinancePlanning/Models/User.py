@@ -1,11 +1,11 @@
-from Models.Goal import Goal
-from Models.Earning import Earning
-from Models.Revenue import Revenue
+from FinancePlanning.Repositories.EarningRepository import EarningRepository
+from FinancePlanning.Repositories.GoalRepository import GoalRepository
+from FinancePlanning.Repositories.RevenueRepository import RevenueRepository
 
 
 class User:
 
-    def __init__(self, user_id, name, surname, earnings: list[Earning], revenues: list[Revenue], goals: list[Goal]):
+    def __init__(self, user_id, name, surname, earnings: EarningRepository, revenues: RevenueRepository, goals: GoalRepository):
         self.user_id = user_id
         self.name = name
         self.surname = surname
@@ -13,11 +13,48 @@ class User:
         self.revenues = revenues
         self.goals = goals
 
-    def add_earning(self, earning_id, price, earning_source, date):
-        self.earnings.append(Earning(earning_id, price, earning_source, date))
+    def get_user_earnings(self):
+        user_earnings = list()
+        earnings = self.earnings.GetAll()
 
-    def add_revenue(self, revenue_id, price, revenue_category, date):
-        self.revenues.append(Revenue(revenue_id, price, revenue_category, date))
+        for earning in earnings:
+            if earning.user_id == self.user_id:
+                user_earnings.append(earning)
 
-    def add_goal(self, goal_id, name, price):
-        self.goals.append(Goal(goal_id, name, price))
+        return user_earnings
+
+    def get_user_revenues(self):
+        user_revenues = list()
+        revenues = self.revenues.GetAll()
+
+        for revenue in revenues:
+            if revenue.user_id == self.user_id:
+                user_revenues.append(revenue)
+
+        return user_revenues
+
+    def get_user_goals(self):
+        goals = self.goals.GetAll()
+        user_goals = list()
+
+        for goal in goals:
+            if goal.user_id == self.user_id:
+                user_goals.append(goal)
+
+        return user_goals
+
+    def get_user_balance(self):
+
+        balance = 0
+
+        for earning in self.get_user_earnings():
+            balance += earning.price
+
+        for goal in self.get_user_goals():
+            balance -= goal.price
+
+        return balance
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.user_id == other.user_id
