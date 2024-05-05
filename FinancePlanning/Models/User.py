@@ -1,16 +1,19 @@
 from dataclasses import dataclass
 
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, registry
+
 from FinancePlanning.Models.DomainObject import DomainObject
-from FinancePlanning.Repositories.Redudant.EarningRepository import EarningRepository
-from FinancePlanning.Repositories.Redudant.GoalRepository import GoalRepository
-from FinancePlanning.Repositories.Redudant.RevenueRepository import RevenueRepository
 from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
 
+reg = registry()
 
-@dataclass(frozen=False)
+
 class User(DomainObject):
-    name: str
-    surname: str
+    __tablename__ = "user"
+
+    name: Mapped[str] = mapped_column(String(30))
+    surname: Mapped[str] = mapped_column(String(30))
 
     def get_user_earnings(self, earningsRepo: RepositoryBase):
         user_earnings = list()

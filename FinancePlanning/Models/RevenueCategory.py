@@ -1,8 +1,10 @@
-from dataclasses import dataclass
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
 
-from FinancePlanning.Models.DomainObject import DomainFrozen
+from FinancePlanning.Models.DomainObject import DomainObject
 
 
-@dataclass(frozen=True)
-class RevenueCategory(DomainFrozen):
-    name: str
+class RevenueCategory(DomainObject):
+    __tablename__ = "revenue_category"
+
+    name: Mapped[str] = mapped_column(String(30))

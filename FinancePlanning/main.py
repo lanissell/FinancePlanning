@@ -2,30 +2,44 @@ from datetime import datetime
 
 from FinancePlanning.Logic.EarningsService import EarningsService
 from FinancePlanning.Logic.RevenuesService import RevenuesService
+from FinancePlanning.Models.DomainObject import DomainObject
 from FinancePlanning.Models.Earning import Earning
 from FinancePlanning.Models.EarningSource import EarningSource
 from FinancePlanning.Models.Revenue import Revenue
 from FinancePlanning.Models.RevenueCategory import RevenueCategory
 from FinancePlanning.Models.User import User
-from FinancePlanning.Repositories.XMLRepository import XMLRepository
+from FinancePlanning.Repositories.TableRepository import TableRepository
+from FinancePlanning.Repositories.XMLRepository import XMLRepositorys
 from FinancePlanning.Repositories.XMLRepositoryParented import XMLRepositoryParented
 
 PATH = "C:\\MyWindows\\Projects\\FinancePlanning\\FinancePlanning\\xml"
 
 if __name__ == '__main__':
     # User
-    users_repo = XMLRepository("user", PATH, User)
-    users_repo.Add(User(0, "A", "B"))
+    #users_repo = XMLRepository("user", PATH, User)
+    users_repo = TableRepository(User)
+
+    users_repo.Add(User(
+        object_id=0,
+        name="A",
+        surname="B"
+    ))
 
     # Revenue
-    revenues_repo = XMLRepositoryParented("revenue", "user", PATH, Revenue)
-    revenues_categories_repo = XMLRepository("revenueCategory", PATH, RevenueCategory)
+    #revenues_repo = XMLRepositoryParented("revenue", "user", PATH, Revenue)
+    revenues_repo = TableRepository(Revenue)
+
+    #revenues_categories_repo = XMLRepository("revenueCategory", PATH, RevenueCategory)
+    revenues_categories_repo = TableRepository(RevenueCategory)
 
     revenue_service = RevenuesService(revenues_repo, revenues_categories_repo)
 
     # Earning
-    earnings_repo = XMLRepositoryParented("earning", "user", PATH, Earning)
-    earnings_categories_repo = XMLRepository("earningSource", PATH, EarningSource)
+    #earnings_repo = XMLRepositoryParented("earning", "user", PATH, Earning)
+    earnings_repo = TableRepository(Earning)
+
+    #earnings_categories_repo = XMLRepository("earningSource", PATH, EarningSource)
+    earnings_categories_repo = TableRepository(EarningSource)
 
     earning_service = EarningsService(earnings_repo, earnings_categories_repo)
 

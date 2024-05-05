@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='ASCII'?>
+<earningSources>
+	<earningSource>
+		<object_id type="int">0</object_id>
+		<name type="str">Work</name>
+	</earningSource>
+	<earningSource>
+		<object_id type="int">1</object_id>
+		<name type="str">Present</name>
+	</earningSource>
+</earningSources>
