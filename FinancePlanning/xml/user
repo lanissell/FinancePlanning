@@ -8,32 +8,164 @@
 			<revenue>
 				<object_id type="int">0</object_id>
 				<price type="int">1000</price>
-				<date type="str">2024-05-05 18:52:18.243537</date>
+				<date type="str">2024-05-05 19:10:26.656046</date>
 				<user_id type="int">0</user_id>
-				<category_id type="int">0</category_id>
+				<category type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Shop</name>
+				</category>
 			</revenue>
 			<revenue>
 				<object_id type="int">1</object_id>
 				<price type="int">500</price>
-				<date type="str">2024-05-05 18:52:18.247589</date>
+				<date type="str">2024-05-05 19:10:26.660047</date>
 				<user_id type="int">0</user_id>
-				<category_id type="int">1</category_id>
+				<category type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Taxi</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">2</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 19:13:19.424574</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Shop</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">3</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 19:13:19.429576</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Taxi</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">4</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 21:34:40.725054</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Shop</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">5</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 21:34:40.731121</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Taxi</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">6</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 21:40:46.058103</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Shop</name>
+				</category>
+			</revenue>
+			<revenue>
+				<object_id type="int">7</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 21:40:46.064193</date>
+				<user_id type="int">0</user_id>
+				<category type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Taxi</name>
+				</category>
 			</revenue>
 		</revenues>
 		<earnings>
 			<earning>
 				<object_id type="int">0</object_id>
 				<price type="int">1000</price>
-				<date type="str">2024-05-05 18:52:18.250589</date>
+				<date type="str">2024-05-05 19:10:26.662705</date>
 				<user_id type="int">0</user_id>
-				<source_id type="int">0</source_id>
+				<source type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Work</name>
+				</source>
 			</earning>
 			<earning>
 				<object_id type="int">1</object_id>
 				<price type="int">500</price>
-				<date type="str">2024-05-05 18:52:18.254642</date>
+				<date type="str">2024-05-05 19:10:26.667708</date>
 				<user_id type="int">0</user_id>
-				<source_id type="int">1</source_id>
+				<source type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Present</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">2</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 19:13:19.433576</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Work</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">3</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 19:13:19.436577</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Present</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">4</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 21:34:40.735190</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Work</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">5</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 21:34:40.738231</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Present</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">6</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 21:40:46.072215</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">0</object_id>
+					<name type="str">Work</name>
+				</source>
+			</earning>
+			<earning>
+				<object_id type="int">7</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 21:40:46.077239</date>
+				<user_id type="int">0</user_id>
+				<source type="dict">
+					<object_id type="int">1</object_id>
+					<name type="str">Present</name>
+				</source>
 			</earning>
 		</earnings>
 	</user>

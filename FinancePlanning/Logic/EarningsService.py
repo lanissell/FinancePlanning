@@ -27,7 +27,7 @@ class EarningsService:
         self.earning_repository.Add(Earning(
             object_id=last_id,
             user_id=user.object_id,
-            source_id=source.object_id,
+            source=source,
             price=price,
             date=str(date))
         )

@@ -19,8 +19,8 @@ class Earning(DomainObject):
     def user(self) -> Mapped["User"]:
         return relationship("User")
 
-    source_id: Mapped[int] = mapped_column(ForeignKey("earning_source.object_id"))
-
     @declared_attr
-    def source(self) -> Mapped["EarningSource"]:
-        return relationship("EarningSource")
+    def source_id(self) -> Mapped[int]:
+        return mapped_column(ForeignKey("earning_source.object_id"))
+
+    source: Mapped["EarningSource"] = relationship("EarningSource")

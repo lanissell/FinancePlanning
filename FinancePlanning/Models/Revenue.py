@@ -18,8 +18,10 @@ class Revenue(DomainObject):
     def user(self) -> Mapped["User"]:
         return relationship("User")
 
-    category_id: Mapped[int] = mapped_column(ForeignKey("revenue_category.object_id"))
-
     @declared_attr
-    def category(self) -> Mapped["RevenueCategory"]:
-        return relationship("RevenueCategory")
+    def category_id(self) -> Mapped[int]:
+        return mapped_column(ForeignKey("revenue_category.object_id"))
+
+    category: Mapped["RevenueCategory"] = relationship("RevenueCategory")
+
+

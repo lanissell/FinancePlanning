@@ -27,7 +27,7 @@ class RevenuesService:
         self.revenue_repository.Add(Revenue(
             object_id=last_id,
             user_id=user.object_id,
-            category_id=category.object_id,
+            category=category,
             price=price,
             date=str(date)))
 
