@@ -2,11 +2,11 @@ import unittest
 from datetime import datetime
 
 from FinancePlanning.Logic.RevenuesService import RevenuesService
-from FinancePlanning.Models.Earning import Earning
 from FinancePlanning.Models.Revenue import Revenue
 from FinancePlanning.Models.RevenueCategory import RevenueCategory
 from FinancePlanning.Models.User import User
 from FinancePlanning.Repositories.XMLRepository import XMLRepository
+from FinancePlanning.Repositories.XMLRepositoryParented import XMLRepositoryParented
 from Test.GoalServiceTest import remove_test_repo
 
 
@@ -15,11 +15,14 @@ class RevenueServiceTest(unittest.TestCase):
     PATH = "C:\\MyWindows\\Projects\\FinancePlanning\\FinancePlanning"
 
     def setUp(self):
-        self.revenues = XMLRepository("revenuesTest", self.PATH, Revenue)
-        self.earnings = XMLRepository("earningsTest", self.PATH, Earning)
+        self.revenues = XMLRepositoryParented("revenue", "user", self.PATH, Revenue)
+        self.earnings = XMLRepositoryParented("earning", "user", self.PATH, Revenue)
         self.revenues_categories = XMLRepository("revenuesCategoriesTest", self.PATH, RevenueCategory)
 
-        self.user = User(0, "Denis", "Belavin")
+        self.users_repo = XMLRepository("user", self.PATH, User)
+
+        user = User(1, "Denis", "Belavin")
+        self.users_repo.Add(user)
 
         self.revenue_service = RevenuesService(self.revenues, self.revenues_categories)
 
@@ -27,8 +30,9 @@ class RevenueServiceTest(unittest.TestCase):
 
         revenues_count = len(self.revenues.GetAll())
 
-        self.revenue_service.create_revenue(self.user, 100,
-                                            self.revenue_service.get_revenue_category_by_name("Shop").object_id,
+        user = self.users_repo.GetById(0)
+        self.revenue_service.create_revenue(user, 100,
+                                            self.revenue_service.get_revenue_category_by_name("Shop"),
                                             datetime.now())
 
         isRevenueAdded = len(self.revenues.GetAll()) == revenues_count + 1
@@ -39,8 +43,9 @@ class RevenueServiceTest(unittest.TestCase):
 
         revenues_count = len(self.revenues.GetAll())
 
-        self.revenue_service.create_revenue(self.user, -100,
-                                            self.revenue_service.get_revenue_category_by_name("Shop").object_id,
+        user = self.users_repo.GetById(0)
+        self.revenue_service.create_revenue(user, -100,
+                                            self.revenue_service.get_revenue_category_by_name("Shop"),
                                             datetime.now())
 
         isRevenueAdded = len(self.revenues.GetAll()) == revenues_count + 1
@@ -53,8 +58,9 @@ class RevenueServiceTest(unittest.TestCase):
 
         date = datetime(2050, 1, 1)
 
-        self.revenue_service.create_revenue(self.user, 100,
-                                            self.revenue_service.get_revenue_category_by_name("Shop").object_id,
+        user = self.users_repo.GetById(0)
+        self.revenue_service.create_revenue(user, 100,
+                                            self.revenue_service.get_revenue_category_by_name("Shop"),
                                             date)
 
         isRevenueAdded = len(self.revenues.GetAll()) == revenues_count + 1
@@ -62,6 +68,8 @@ class RevenueServiceTest(unittest.TestCase):
         self.assertFalse(isRevenueAdded)
 
     def tearDown(self):
-        remove_test_repo(self.revenues)
-        remove_test_repo(self.earnings)
-        remove_test_repo(self.revenues_categories)
+        pass
+        # remove_test_repo(self.revenues)
+        # remove_test_repo(self.earnings)
+        # remove_test_repo(self.revenues_categories)
+        # remove_test_repo(self.users_repo)

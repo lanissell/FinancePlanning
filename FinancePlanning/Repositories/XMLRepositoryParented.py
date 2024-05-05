@@ -9,19 +9,24 @@ from dicttoxml import dicttoxml
 import xmltodict
 
 
-class XMLRepository(RepositoryBase):
+class XMLRepositoryParented(RepositoryBase):
 
-    def __init__(self, name, path, valueType):
+    def __init__(self, name, parentName, path, valueType):
         self.name = name
-        self.path = path
         self.valueType = valueType
+        self.parentName = parentName
+        self.containerName = name + "s"
+        self.parentPath = f"{path}\\{parentName}"
+
+    def GetFullPath(self):
+        return self.parentPath
 
     def GetAll(self):
         root = self.GetXmlRoot()
 
         items = list()
 
-        for child in root:
+        for child in list(root.iter(self.name)):
             item = xmltodict.parse(ET.tostring(child))
             items.append(from_dict(self.valueType, self.GetTypedDict(item[self.name])))
 
@@ -35,17 +40,31 @@ class XMLRepository(RepositoryBase):
                 return item
 
     def Add(self, item):
-
-        if self.GetById(item.object_id) is not None:
-            return
-
         root = self.GetXmlRoot()
+
+        users = root.findall(self.parentName)
+        selectedUser = None
+
+        for user in users:
+            user_id = user.findtext("object_id")
+            if str(user_id) == str(item.parent_id):
+                selectedUser = user
+                break
+
+        if selectedUser is None:
+            print("Parent user not found")
+            return
 
         itemDict = dataclasses.asdict(item)
         itemXmlString = dicttoxml(itemDict, custom_root=self.name)
         itemXml = ET.fromstring(itemXmlString)
 
-        root.append(itemXml)
+        container = selectedUser.find(self.containerName)
+        if container is None:
+            container = ET.Element(self.containerName)
+            selectedUser.append(container)
+
+        container.append(itemXml)
         self.Save(root)
 
     def DeleteById(self, id):
@@ -66,17 +85,13 @@ class XMLRepository(RepositoryBase):
 
     def GetXmlRoot(self):
 
-        fullPath = self.GetFullPath()
+        if os.path.exists(self.parentPath):
+            return ET.parse(self.parentPath).getroot()
 
-        if os.path.exists(fullPath):
-            return ET.parse(fullPath).getroot()
-
-        root = ET.XML(f"<{self.name}s>"f"</{self.name}s>")
-
-        return root
+        print("Parent xml not found")
 
     def Save(self, root):
-        path = self.GetFullPath()
+        path = self.parentPath
 
         if os.path.exists(path):
             os.remove(path)
@@ -87,22 +102,19 @@ class XMLRepository(RepositoryBase):
         os.write(file, xmlString)
         os.close(file)
 
-    def GetFullPath(self):
-        return self.path + f"\\{self.name}"
-
     def GetTypedDict(self, xmlDict):
 
         newDict = xmlDict.copy()
 
         for key in xmlDict.keys():
-            t = xmlDict[key].get("@type")
+            valueType = eval(xmlDict[key]["@type"])
 
-            if t is None:
-                continue
-
-            valueType = eval(t)
-
-            value = xmlDict[key]["#text"]
+            if valueType is dict:
+                value = xmlDict[key]
+                value.pop("@type")
+                value = self.GetTypedDict(value)
+            else:
+                value = xmlDict[key]["#text"]
 
             if valueType is bool:
                 newDict[key] = True if value == "true" else False
