@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 
-from FinancePlanning.Models.DomainObject import DomainFrozen
+from FinancePlanning.Models.DomainObject import DomainParented
 
 
 @dataclass(frozen=True)
-class Goal(DomainFrozen):
-    user_id: int
+class Goal(DomainParented):
     name: str
     price: float
     closed: bool

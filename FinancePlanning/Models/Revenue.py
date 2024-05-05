@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
-from FinancePlanning.Models.DomainObject import DomainFrozen
+from FinancePlanning.Models.DomainObject import DomainParented
+from FinancePlanning.Models.RevenueCategory import RevenueCategory
 
 
 @dataclass(frozen=True)
-class Revenue(DomainFrozen):
-    user_id: int
+class Revenue(DomainParented):
     price: float
-    category_id: int
+    category: RevenueCategory
     date: str

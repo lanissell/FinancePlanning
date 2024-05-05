@@ -12,7 +12,7 @@ class RevenuesService:
         self.revenue_repository = revenue_repository
         self.revenue_category_repository = revenue_category_repository
 
-    def create_revenue(self, user: User, price: float, category: int, date: datetime):
+    def create_revenue(self, user: User, price: float, category: RevenueCategory, date: datetime):
 
         if price <= 0 or date > datetime.now():
             return False
@@ -20,7 +20,7 @@ class RevenuesService:
         revenues = self.revenue_repository.GetAll()
 
         if len(revenues) > 0:
-            last_id = revenues[-1].revenue_category_id + 1
+            last_id = revenues[-1].object_id + 1
         else:
             last_id = 0
 
@@ -37,7 +37,7 @@ class RevenuesService:
                 return revenue_category
 
         if len(categories) > 0:
-            last_id = categories[-1].object_id
+            last_id = categories[-1].object_id + 1
         else:
             last_id = 0
 
