@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='ASCII'?>
+<revenueCategorys>
+	<revenueCategory>
+		<object_id type="int">0</object_id>
+		<name type="str">Shop</name>
+	</revenueCategory>
+	<revenueCategory>
+		<object_id type="int">1</object_id>
+		<name type="str">Taxi</name>
+	</revenueCategory>
+</revenueCategorys>

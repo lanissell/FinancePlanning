@@ -3,10 +3,13 @@ import os
 
 from dacite import from_dict
 from lxml import etree as ET
+from sqlalchemy.orm import Mapped
 
 from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
 from dicttoxml import dicttoxml
 import xmltodict
+
+import sqlalchemy
 
 
 class XMLRepository(RepositoryBase):
@@ -23,7 +26,8 @@ class XMLRepository(RepositoryBase):
 
         for child in root:
             item = xmltodict.parse(ET.tostring(child))
-            items.append(from_dict(self.valueType, self.GetTypedDict(item[self.name])))
+            attr = self.GetTypedDict(item[self.name])
+            items.append(self.valueType(**attr))
 
         return items
 
@@ -98,11 +102,17 @@ class XMLRepository(RepositoryBase):
             t = xmlDict[key].get("@type")
 
             if t is None:
+                newDict.pop(key)
                 continue
 
             valueType = eval(t)
 
-            value = xmlDict[key]["#text"]
+            if valueType is dict:
+                value = xmlDict[key]
+                value.pop("@type")
+                value = self.GetTypedDict(value)
+            else:
+                value = xmlDict[key]["#text"]
 
             if valueType is bool:
                 newDict[key] = True if value == "true" else False

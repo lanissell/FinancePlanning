@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='ASCII'?>
+<users>
+	<user>
+		<object_id type="int">0</object_id>
+		<name type="str">A</name>
+		<surname type="str">B</surname>
+		<revenues>
+			<revenue>
+				<object_id type="int">0</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 18:52:18.243537</date>
+				<user_id type="int">0</user_id>
+				<category_id type="int">0</category_id>
+			</revenue>
+			<revenue>
+				<object_id type="int">1</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 18:52:18.247589</date>
+				<user_id type="int">0</user_id>
+				<category_id type="int">1</category_id>
+			</revenue>
+		</revenues>
+		<earnings>
+			<earning>
+				<object_id type="int">0</object_id>
+				<price type="int">1000</price>
+				<date type="str">2024-05-05 18:52:18.250589</date>
+				<user_id type="int">0</user_id>
+				<source_id type="int">0</source_id>
+			</earning>
+			<earning>
+				<object_id type="int">1</object_id>
+				<price type="int">500</price>
+				<date type="str">2024-05-05 18:52:18.254642</date>
+				<user_id type="int">0</user_id>
+				<source_id type="int">1</source_id>
+			</earning>
+		</earnings>
+	</user>
+</users>

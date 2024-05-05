@@ -1,11 +1,11 @@
-from dataclasses import dataclass
+from sqlalchemy import String, Float
+from sqlalchemy.orm import Mapped, mapped_column
 
-from FinancePlanning.Models.DomainObject import DomainParented
+from FinancePlanning.Models.DomainObject import DomainObject
 
 
-@dataclass(frozen=True)
-class Goal(DomainParented):
-    name: str
-    price: float
+class Goal(DomainObject):
+    name: Mapped[str] = mapped_column(String(30))
+    price: Mapped[float] = mapped_column(Float())
     closed: bool
 

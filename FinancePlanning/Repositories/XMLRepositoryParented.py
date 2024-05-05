@@ -1,7 +1,6 @@
 import dataclasses
 import os
 
-from dacite import from_dict
 from lxml import etree as ET
 
 from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
@@ -28,7 +27,8 @@ class XMLRepositoryParented(RepositoryBase):
 
         for child in list(root.iter(self.name)):
             item = xmltodict.parse(ET.tostring(child))
-            items.append(from_dict(self.valueType, self.GetTypedDict(item[self.name])))
+            attrs = self.GetTypedDict(item[self.name])
+            items.append(self.valueType(**attrs))
 
         return items
 
@@ -47,7 +47,7 @@ class XMLRepositoryParented(RepositoryBase):
 
         for user in users:
             user_id = user.findtext("object_id")
-            if str(user_id) == str(item.parent_id):
+            if str(user_id) == str(item.user_id):
                 selectedUser = user
                 break
 
@@ -107,7 +107,13 @@ class XMLRepositoryParented(RepositoryBase):
         newDict = xmlDict.copy()
 
         for key in xmlDict.keys():
-            valueType = eval(xmlDict[key]["@type"])
+            t = xmlDict[key].get("@type")
+
+            if t is None:
+                newDict.pop(key)
+                continue
+
+            valueType = eval(t)
 
             if valueType is dict:
                 value = xmlDict[key]

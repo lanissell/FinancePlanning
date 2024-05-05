@@ -24,7 +24,12 @@ class RevenuesService:
         else:
             last_id = 0
 
-        self.revenue_repository.Add(Revenue(last_id, user.object_id, price, category, str(date)))
+        self.revenue_repository.Add(Revenue(
+            object_id=last_id,
+            user_id=user.object_id,
+            category_id=category.object_id,
+            price=price,
+            date=str(date)))
 
         return True
 
@@ -41,7 +46,10 @@ class RevenuesService:
         else:
             last_id = 0
 
-        new_revenue = RevenueCategory(last_id, name)
+        new_revenue = RevenueCategory(
+            object_id=last_id,
+            name=name
+        )
         self.revenue_category_repository.Add(new_revenue)
 
         return new_revenue

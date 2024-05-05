@@ -12,7 +12,7 @@ class EarningsService:
         self.earning_repository = earning_repository
         self.earning_category_repository = earning_category_repository
 
-    def create_earning(self, user: User, price: float, category: EarningSource, date: datetime):
+    def create_earning(self, user: User, price: float, source: EarningSource, date: datetime):
 
         if price <= 0 or date > datetime.now():
             return False
@@ -24,24 +24,33 @@ class EarningsService:
         else:
             last_id = 0
 
-        self.earning_repository.Add(Earning(last_id, user.object_id, price, category.object_id, str(date)))
+        self.earning_repository.Add(Earning(
+            object_id=last_id,
+            user_id=user.object_id,
+            source_id=source.object_id,
+            price=price,
+            date=str(date))
+        )
 
         return True
 
     def get_earning_category_by_name(self, name):
 
-        categories = self.earning_category_repository.GetAll()
+        sources = self.earning_category_repository.GetAll()
 
-        for revenue_category in categories:
+        for revenue_category in sources:
             if revenue_category.name == name:
                 return revenue_category
 
-        if len(categories) > 0:
-            last_id = categories[-1].object_id + 1
+        if len(sources) > 0:
+            last_id = sources[-1].object_id + 1
         else:
             last_id = 0
 
-        new_revenue = EarningSource(last_id, name)
+        new_revenue = EarningSource(
+            object_id=last_id,
+            name=name
+        )
         self.earning_category_repository.Add(new_revenue)
 
         return new_revenue

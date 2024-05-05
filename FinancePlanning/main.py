@@ -15,7 +15,11 @@ PATH = "C:\\MyWindows\\Projects\\FinancePlanning\\FinancePlanning\\xml"
 if __name__ == '__main__':
     # User
     users_repo = XMLRepository("user", PATH, User)
-    users_repo.Add(User(0, "A", "B"))
+    users_repo.Add(User(
+        object_id=0,
+        name="A",
+        surname="B"
+    ))
 
     # Revenue
     revenues_repo = XMLRepositoryParented("revenue", "user", PATH, Revenue)

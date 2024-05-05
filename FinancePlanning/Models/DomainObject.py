@@ -1,17 +1,5 @@
-from dataclasses import dataclass
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, MappedAsDataclass
 
 
-@dataclass(frozen=False)
-class DomainObject:
-    object_id: int
-
-
-@dataclass(frozen=True)
-class DomainFrozen:
-    object_id: int
-
-
-@dataclass(frozen=True)
-class DomainParented:
-    object_id: int
-    parent_id: int
+class DomainObject(MappedAsDataclass, DeclarativeBase):
+    object_id: Mapped[int] = mapped_column(primary_key=True)
