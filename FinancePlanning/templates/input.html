@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{{ url_for('user_form') }}" method="post">
+    <input type="text" name="name">
+    <input type="text" name="surname">
+    <input type="submit">
+</form>
+<div>
+    {% if response %}
+        {{ response }}
+    {% endif %}
+</div>
+</body>
+</html>
