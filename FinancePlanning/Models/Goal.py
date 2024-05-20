@@ -6,6 +6,7 @@ from FinancePlanning.Models.User import User
 
 
 class Goal(DomainObject):
+    __tablename__ = "goal"
     user_id: Mapped[int] = mapped_column(ForeignKey("user.object_id"))
 
     @declared_attr

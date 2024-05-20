@@ -1,15 +1,11 @@
 import dataclasses
 import os
 
-from dacite import from_dict
 from lxml import etree as ET
-from sqlalchemy.orm import Mapped
 
 from FinancePlanning.Repositories.RepositoryBase import RepositoryBase
 from dicttoxml import dicttoxml
 import xmltodict
-
-import sqlalchemy
 
 
 class XMLRepository(RepositoryBase):
