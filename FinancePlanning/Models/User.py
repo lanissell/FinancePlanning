@@ -58,6 +58,13 @@ class User(DomainObject):
 
         return balance
 
+    def object_to_dict(self):
+        return {
+            "object_id": self.object_id,
+            "name": self.name,
+            "surname": self.surname
+        }
+
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return super().object_id == other.object_id
